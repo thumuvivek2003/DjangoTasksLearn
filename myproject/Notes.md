@@ -14,3 +14,7 @@ Hi, I want to learn Django and now I am moving to the | 7    | CRUD Operations  
 
 
 Hi, I want to learn Django and now I am moving to the | 8    | Views and Templates                 | Build HTML pages using views and templates           | `views.py`, `render()`, templates with Jinja                   | so guide me as I am very new to these concepts - so explain clearly 
+
+
+
+Hi, I want to learn Django and now I am moving to the | 9    | URL Routing                         | Connect pages via URLs                               | `urls.py`, path(), include()                                   | so guide me as I am very new to these concepts - so explain clearly 

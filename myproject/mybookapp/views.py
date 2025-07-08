@@ -1,8 +1,10 @@
-# mybookapp/views.py
+from django.http import HttpResponse
 
-from django.shortcuts import render
-from .models import Book
+def home_view(request):
+    return HttpResponse("Hello, this is the home page!")
 
-def book_list(request):
-    books = Book.objects.all()  # Get all books from database
-    return render(request, 'book_list.html', {'books': books})
+def about_view(request):
+    return HttpResponse("About us page")
+
+def contact_view(request):
+    return HttpResponse("Contact us page")

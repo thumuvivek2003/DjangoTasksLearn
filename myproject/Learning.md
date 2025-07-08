@@ -2147,3 +2147,151 @@ Just tell me your next goal, and I’ll guide you step by step.
 
 
 
+# Task 9 : URL and Routing
+Hi, I want to learn Django and now I am moving to the | 9    | URL Routing                         | Connect pages via URLs                               | `urls.py`, path(), include()                                   | so guide me as I am very new to these concepts - so explain clearly
+Awesome! You're now at **Step 9: URL Routing** in Django — a **core concept** that controls **which view runs when a user visits a certain URL**.
+
+Let me explain clearly and simply so that you fully understand how Django handles URLs.
+
+---
+
+## 🎯 What is URL Routing?
+
+Django uses **URL routing** to match a URL (like `/books/` or `/about/`) to a **view function** in your `views.py`.
+
+### ⚙️ The URL matching happens using:
+
+* `urls.py` (in both the project and app)
+* `path()` function
+* `include()` function (to combine multiple apps' URLs)
+
+---
+
+## ✅ How Routing Works — Big Picture
+
+1. User types `http://localhost:8000/books/`
+2. Django looks in **project’s `urls.py`** (`myproject/urls.py`)
+3. It might use `include()` to look inside your app’s URLs
+4. The URL pattern matches `books/` and runs the corresponding **view** from `views.py`
+5. That view returns a **template (HTML page)**
+
+---
+
+## 🧩 Let's Do It Step-by-Step
+
+---
+
+### 🗂️ Project Structure (Example)
+
+```
+myproject/
+├── mybookapp/
+│   ├── views.py
+│   ├── urls.py     👈 (you will create this)
+│   └── templates/
+├── myproject/
+│   └── urls.py     👈 (main entry for URLs)
+```
+
+---
+
+### ✅ Step 1: Create View
+
+```python
+# mybookapp/views.py
+
+from django.http import HttpResponse
+
+def home_view(request):
+    return HttpResponse("Hello, this is the home page!")
+```
+
+---
+
+### ✅ Step 2: Create App-level `urls.py`
+
+📄 `mybookapp/urls.py`
+
+```python
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.home_view, name='home'),  # maps to /
+]
+```
+
+---
+
+### ✅ Step 3: Connect App URLs in Project `urls.py`
+
+📄 `myproject/urls.py`
+
+```python
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('mybookapp.urls')),  # include app’s urls
+]
+```
+
+> This means: when someone goes to `/`, Django checks `mybookapp/urls.py`.
+
+---
+
+## ✅ Bonus: More URL Patterns
+
+```python
+# mybookapp/views.py
+
+def about_view(request):
+    return HttpResponse("About us page")
+
+def contact_view(request):
+    return HttpResponse("Contact us page")
+```
+
+```python
+# mybookapp/urls.py
+
+urlpatterns = [
+    path('', views.home_view, name='home'),
+    path('about/', views.about_view, name='about'),
+    path('contact/', views.contact_view, name='contact'),
+]
+```
+
+Now visiting these URLs in browser will show:
+
+* `http://127.0.0.1:8000/` → Home
+* `http://127.0.0.1:8000/about/` → About
+* `http://127.0.0.1:8000/contact/` → Contact
+
+---
+
+## ✅ Summary Table
+
+| Function     | Purpose                                             |
+| ------------ | --------------------------------------------------- |
+| `path()`     | Connect a URL string to a view                      |
+| `include()`  | Include another URL file (usually app’s `urls.py`)  |
+| `name='xyz'` | Name the route for use in `{% url 'xyz' %}` in HTML |
+
+---
+
+## 💡 Next Steps
+
+Now that you've learned:
+
+* how `urls.py` works
+* how to route URLs to views
+
+You’re ready to:
+
+* Build dynamic URLs like `/books/<int:id>/`
+* Use URL names inside templates: `{% url 'home' %}`
+
+Would you like me to show that next? Or move to Django Forms (next step)?
+
