@@ -25,3 +25,7 @@ Hi, I want to learn Django and now I am moving to the | 10   | Forms and Input  
 
 
 Hi, I want to learn Django and now I am moving to the | 11   | Django REST Framework (DRF) – Intro | Build APIs instead of web pages                      | DRF install, `APIView`, serializers                            | so guide me as I am very new to these concepts - so explain clearly 
+
+
+
+Hi, I want to learn Django and now I am moving to the | 12   | DRF – CRUD APIs                     | Create REST APIs for your models                     | GET, POST, PUT, DELETE APIs                                    | so guide me as I am very new to these concepts - so explain clearly 
