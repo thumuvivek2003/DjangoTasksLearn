@@ -1,6 +1,128 @@
-<h2>Book Form</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+{% extends 'base.html' %}
+
+{% block title %}{{ form.instance.pk|yesno:"Edit Book,Add New Book" }} - BookVault{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto space-y-6">
+    <!-- Header -->
+    <div class="glass-effect rounded-2xl p-6 shadow-xl">
+        <div class="flex items-center space-x-4">
+            <div class="bg-primary-100 p-3 rounded-lg">
+                <i class="fas fa-{{ form.instance.pk|yesno:'edit,plus' }} text-primary-600 text-xl"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold text-gray-900">
+                    {{ form.instance.pk|yesno:"Edit Book,Add New Book" }}
+                </h1>
+                <p class="text-gray-600">
+                    {{ form.instance.pk|yesno:"Update your book information,Add a new book to your collection" }}
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Card -->
+    <div class="glass-effect rounded-2xl p-8 shadow-xl">
+        <form method="post" class="space-y-6">
+            {% csrf_token %}
+            
+            <!-- Form Fields -->
+            <div class="space-y-6">
+                {% for field in form %}
+                    <div class="space-y-2">
+                        <label for="{{ field.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                            {{ field.label }}
+                            {% if field.field.required %}
+                                <span class="text-red-500">*</span>
+                            {% endif %}
+                        </label>
+                        
+                        {% if field.name == 'title' %}
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-book text-gray-400"></i>
+                                </div>
+                                <input type="text" 
+                                       name="{{ field.name }}" 
+                                       id="{{ field.id_for_label }}"
+                                       value="{{ field.value|default:'' }}"
+                                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                       placeholder="Enter book title">
+                            </div>
+                        {% elif field.name == 'author' %}
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                    <i class="fas fa-user text-gray-400"></i>
+                                </div>
+                                <input type="text" 
+                                       name="{{ field.name }}" 
+                                       id="{{ field.id_for_label }}"
+                                       value="{{ field.value|default:'' }}"
+                                       class="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors"
+                                       placeholder="Enter author name">
+                            </div>
+                        {% elif field.name == 'description' %}
+                            <div class="relative">
+                                <textarea name="{{ field.name }}" 
+                                          id="{{ field.id_for_label }}"
+                                          rows="4"
+                                          class="block w-full px-3 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors resize-none"
+                                          placeholder="Enter book description (optional)">{{ field.value|default:'' }}</textarea>
+                            </div>
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+                        
+                        {% if field.errors %}
+                            <div class="text-red-600 text-sm">
+                                {% for error in field.errors %}
+                                    <p class="flex items-center">
+                                        <i class="fas fa-exclamation-circle mr-1"></i>
+                                        {{ error }}
+                                    </p>
+                                {% endfor %}
+                            </div>
+                        {% endif %}
+                        
+                        {% if field.help_text %}
+                            <p class="text-gray-500 text-sm">{{ field.help_text }}</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex flex-col sm:flex-row gap-4 pt-6 border-t border-gray-200">
+                <button type="submit" 
+                        class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:scale-105">
+                    <i class="fas fa-save mr-2"></i>
+                    {{ form.instance.pk|yesno:"Update Book,Save Book" }}
+                </button>
+                
+                <a href="{% url 'book_list' %}" 
+                   class="flex-1 inline-flex items-center justify-center px-6 py-3 bg-gray-500 hover:bg-gray-600 text-white font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                    <i class="fas fa-arrow-left mr-2"></i>
+                    Cancel
+                </a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Tips Card -->
+    <div class="bg-blue-50 border border-blue-200 rounded-xl p-6">
+        <div class="flex items-start space-x-3">
+            <div class="bg-blue-100 p-2 rounded-lg">
+                <i class="fas fa-lightbulb text-blue-600"></i>
+            </div>
+            <div>
+                <h3 class="text-sm font-medium text-blue-900 mb-1">Tips for better organization</h3>
+                <ul class="text-sm text-blue-700 space-y-1">
+                    <li>• Use consistent author name formatting (e.g., "First Last")</li>
+                    <li>• Include subtitle separated by a colon if applicable</li>
+                    <li>• Add publication year in parentheses for clarity</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
