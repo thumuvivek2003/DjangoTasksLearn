@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
@@ -7,3 +8,9 @@ class Book(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class BookAdmin(admin.ModelAdmin):
+    list_display = ('title', 'author', 'published_date')
+    search_fields = ('title', 'author')
+
