@@ -11,3 +11,6 @@ Hi, I want to learn Django and now I am moving to the | 5    | PostgreSQL Connec
 Hi, I want to learn Django and now I am moving to the | 6    | Django Admin                        | Add models to Django Admin panel                     | `admin.py`, superuser creation                                 | so guide me as I am very new to these concepts - so explain clearly 
 
 Hi, I want to learn Django and now I am moving to the | 7    | CRUD Operations                     | Create, Read, Update, Delete data via Django         | Django ORM queries, `objects.create()`, `filter()`, `update()` | so guide me as I am very new to these concepts - so explain clearly 
+
+
+Hi, I want to learn Django and now I am moving to the | 8    | Views and Templates                 | Build HTML pages using views and templates           | `views.py`, `render()`, templates with Jinja                   | so guide me as I am very new to these concepts - so explain clearly 
