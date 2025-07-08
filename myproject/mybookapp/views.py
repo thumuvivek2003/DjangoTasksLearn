@@ -1,10 +1,20 @@
-from django.http import HttpResponse
+# mybookapp/views.py
 
-def home_view(request):
-    return HttpResponse("Hello, this is the home page!")
+from django.shortcuts import render, redirect
+from .forms import BookForm,Book
 
-def about_view(request):
-    return HttpResponse("About us page")
+def book_create(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()  # Save to DB
+            return redirect('book_list')  # After saving, go to list view
+    else:
+        form = BookForm()
+    
+    return render(request, 'book_form.html', {'form': form})
 
-def contact_view(request):
-    return HttpResponse("Contact us page")
+
+def book_list(request):
+    books = Book.objects.all()  # Get all books from database
+    return render(request, 'book_list.html', {'books': books})

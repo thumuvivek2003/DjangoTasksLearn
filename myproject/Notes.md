@@ -18,3 +18,7 @@ Hi, I want to learn Django and now I am moving to the | 8    | Views and Templat
 
 
 Hi, I want to learn Django and now I am moving to the | 9    | URL Routing                         | Connect pages via URLs                               | `urls.py`, path(), include()                                   | so guide me as I am very new to these concepts - so explain clearly 
+
+
+
+Hi, I want to learn Django and now I am moving to the | 10   | Forms and Input                     | Take user input and save to database                 | `forms.py`, form validation, CSRF tokens                       | so guide me as I am very new to these concepts - so explain clearly 
