@@ -1,52 +1,115 @@
-anaconda-anon-usage @ file:///croot/anaconda-anon-usage_1749054771823/work
-annotated-types @ file:///work/perseverance-python-buildout/croot/annotated-types_1728386958747/work
-archspec @ file:///croot/archspec_1709217642129/work
-boltons @ file:///croot/boltons_1737061692168/work
-Brotli @ file:///croot/brotli-split_1736182456865/work
-certifi @ file:///croot/certifi_1750863846190/work/certifi
-cffi @ file:///croot/cffi_1736182485317/work
-charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
-conda @ file:///croot/conda_1749171252582/work/conda-src
-conda-anaconda-telemetry @ file:///croot/conda-anaconda-telemetry_1744662537425/work
-conda-anaconda-tos @ file:///croot/conda-anaconda-tos_1748537199219/work
-conda-content-trust @ file:///work/perseverance-python-buildout/croot/conda-content-trust_1728487058234/work
-conda-libmamba-solver @ file:///croot/conda-libmamba-solver_1745607008911/work/src
-conda-package-handling @ file:///croot/conda-package-handling_1731369017509/work
-conda_package_streaming @ file:///croot/conda-package-streaming_1731366181659/work
-cryptography @ file:///croot/cryptography_1748977429425/work
-distro @ file:///work/perseverance-python-buildout/croot/distro_1728396110052/work
-Events==0.5
-frozendict @ file:///work/perseverance-python-buildout/croot/frozendict_1728497542215/work
-gunicorn==23.0.0
-idna @ file:///work/perseverance-python-buildout/croot/idna_1728385935861/work
-jsonpatch @ file:///work/perseverance-python-buildout/croot/jsonpatch_1728399595941/work
-jsonpointer==2.1
-libmambapy @ file:///croot/mamba-split_1734469461757/work/libmambapy
-markdown-it-py @ file:///work/perseverance-python-buildout/croot/markdown-it-py_1728387994477/work
-mdurl @ file:///work/perseverance-python-buildout/croot/mdurl_1728387286143/work
-menuinst @ file:///croot/menuinst_1738943416351/work
-opensearch-py==3.0.0
-packaging @ file:///croot/packaging_1734472117206/work
-platformdirs @ file:///croot/platformdirs_1744273042065/work
-pluggy @ file:///croot/pluggy_1733169602837/work
-psycopg2 @ file:///croot/psycopg2_1744919787325/work
-psycopg2-binary==2.9.10
-pycosat @ file:///croot/pycosat_1736868416091/work
-pycparser @ file:///tmp/build/80754af9/pycparser_1636541352034/work
-pydantic @ file:///croot/pydantic_1734736067156/work
-pydantic_core @ file:///croot/pydantic-core_1734726052986/work
-Pygments @ file:///croot/pygments_1744664109463/work
-PySocks @ file:///work/perseverance-python-buildout/croot/pysocks_1728386193338/work
+asgiref==3.4.1
+asn1crypto==1.5.1
+async-timeout==4.0.2
+backports.zoneinfo==0.2.1
+beautifulsoup4==4.12.3
+bleach==4.1.0
+boto3==1.23.10
+botocore==1.26.10
+cachetools==4.2.4
+certifi==2025.1.31
+cffi==1.15.1
+charset-normalizer==2.0.12
+confluent-kafka==2.6.0
+cryptography==36.0.2
+dataclasses==0.8
+Django==2.2
+django-background-tasks==1.2.5
+django-ckeditor==6.3.2
+django-colorfield==0.7.3
+django-compat==1.0.15
+django-cors-headers==3.10.1
+django-environ==0.11.2
+django-js-asset==2.0.0
+django-mathfilters==1.0.0
+django-prometheus==2.3.1
+djangorestframework==3.13.1
+ecdsa==0.19.1
+et-xmlfile==1.1.0
+filelock==3.4.1
+google-api-core==2.8.2
+google-api-python-client==2.52.0
+google-auth==2.22.0
+google-auth-httplib2==0.2.0
+google-cloud-bigquery==3.2.0
+google-cloud-bigquery-storage==2.13.2
+google-cloud-core==2.3.1
+google-cloud-storage==1.42.3
+google-crc32c==1.3.0
+google-resumable-media==2.3.3
+googleapis-common-protos==1.56.3
+grpcio==1.48.2
+grpcio-status==1.48.2
+httplib2==0.22.0
+idna==3.10
+imgkit==1.2.3
+importlib-metadata==4.8.3
+importlib-resources==5.4.0
+inflect==5.3.0
+isoweek==1.3.3
+jmespath==0.10.0
+joblib==1.1.1
+numexpr==2.8.1
+numpy==1.19.5
+openpyxl==3.1.3
+opensearch-py==2.5.0
+oscrypto==1.3.0
+packaging==21.3
+pandas==1.1.5
+pdfkit==1.0.0
+Pillow==8.4.0
+pipdeptree==2.2.1
+platformdirs==2.4.0
+prometheus-client==0.17.1
+proto-plus==1.23.0
+protobuf==3.19.6
+psutil==6.1.0
+psycopg==3.0.18
+psycopg2==2.9.8
+pyarrow==6.0.1
+pyasn1==0.5.1
+pyasn1-modules==0.3.0
+pycparser==2.21
+pycryptodomex==3.21.0
+PyJWT==2.4.0
+pymemcache==3.5.2
+pyOpenSSL==21.0.0
+pyparsing==3.1.4
 python-dateutil==2.9.0.post0
-requests @ file:///croot/requests_1730999120400/work
-rich @ file:///croot/rich_1732638981168/work
-ruamel.yaml @ file:///croot/ruamel.yaml_1745960305322/work
-ruamel.yaml.clib @ file:///croot/ruamel.yaml.clib_1745937152469/work
-setuptools==78.1.1
-six==1.17.0
-tqdm @ file:///croot/tqdm_1738943501192/work
-truststore @ file:///croot/truststore_1736550121485/work
-typing_extensions @ file:///croot/typing_extensions_1734714854207/work
-urllib3 @ file:///croot/urllib3_1737133630106/work
-wheel==0.45.1
-zstandard @ file:///croot/zstandard_1731356346222/work
+python-decouple==3.8
+python-http-client==3.3.7
+python-jose==3.3.0
+python-slugify==6.1.2
+pytz==2024.2
+pytz-deprecation-shim==0.1.0.post0
+PyVirtualDisplay==3.0
+redis==4.3.6
+requests==2.27.1
+rsa==4.9
+s3transfer==0.5.2
+scikit-learn==0.24.2
+scipy==1.5.4
+sendgrid==5.3.0
+six==1.16.0
+snowflake-id==0.0.5
+sortedcontainers==2.4.0
+soupsieve==2.3.2.post1
+sqlparse==0.4.4
+ssh-import-id==5.7
+text-unidecode==1.3
+threadpoolctl==3.1.0
+TimeConvert==3.0.13
+tomlkit==0.11.6
+tornado==6.1
+typing_extensions==4.1.1
+tzdata==2024.1
+tzlocal==4.2
+ua-parser==0.18.0
+uritemplate==4.1.1
+urllib3==1.26.20
+user-agents==2.2.0
+watchdog==2.3.1
+webencodings==0.5.1
+XlsxWriter==3.2.0
+xlwt==1.3.0
+zipp==3.6.0
