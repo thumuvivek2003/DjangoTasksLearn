@@ -3536,7 +3536,7 @@ Let me know if you want me to show your exact code with `ModelViewSet` and route
 
 # Task 13 : Authentication in Django 
 
-Hi, I want to learn Django and now I am moving to the | 13   | Authentication in Django            | Add user login, signup, password system              | User model, auth, middleware                               | so guide me as I am very new to these concepts - so explain clearly  give me full and complete code too 
+
 
 
 Perfect! You're now at **Step 13: Authentication in Django** — this is how Django manages **login, signup, logout, and user sessions**.
@@ -3814,3 +3814,175 @@ Would you like:
 * Or to use **DRF + JWT token authentication** for APIs?
 
 Let me know and I’ll guide you step-by-step.
+
+
+
+# Task 14 
+Hi, I want to learn Django and now I am moving to the 
+| 14   | PostgreSQL – Basics                 | Learn basic SQL used in Django                       | SELECT, INSERT, WHERE, JOIN                                    | so guide me as I am very new to these concepts - so explain clearly 
+
+You're doing great! Now you're on **Step 14: PostgreSQL – Basics**. 🎯
+
+Even though Django handles most database operations for you, **knowing basic SQL** is super helpful — especially for debugging, writing complex queries, or understanding what Django ORM is really doing.
+
+Let me explain **SQL basics** step-by-step and clearly, assuming you're totally new to it.
+
+---
+
+## 🧠 What is SQL?
+
+> **SQL (Structured Query Language)** is the language used to interact with **relational databases** like PostgreSQL.
+
+With SQL, you can:
+
+* 📥 **Insert** data
+* 📃 **Select** data (read)
+* ✏️ **Update** data
+* ❌ **Delete** data
+* 🔗 **Join** tables
+
+---
+
+## 🛠️ Connecting to PostgreSQL
+
+To run SQL manually, open terminal:
+
+```bash
+psql -U postgres -d your_db_name
+```
+
+If you're using Django, your database name is in `settings.py`.
+
+---
+
+## ✅ 1. `SELECT` – Read data
+
+```sql
+SELECT * FROM books;
+```
+
+* `SELECT` = get data
+* `*` = all columns
+* `books` = table name
+
+Example:
+
+```sql
+SELECT title, author FROM books;
+```
+
+---
+
+## ✅ 2. `INSERT` – Add data
+
+```sql
+INSERT INTO books (title, author) VALUES ('Django Mastery', 'William');
+```
+
+---
+
+## ✅ 3. `WHERE` – Filter data
+
+```sql
+SELECT * FROM books WHERE author = 'William';
+```
+
+> You can also filter numbers, dates, etc.
+
+```sql
+SELECT * FROM books WHERE id = 1;
+```
+
+---
+
+## ✅ 4. `UPDATE` – Modify data
+
+```sql
+UPDATE books SET author = 'John' WHERE id = 1;
+```
+
+> Changes author only for the row where id = 1
+
+---
+
+## ✅ 5. `DELETE` – Remove data
+
+```sql
+DELETE FROM books WHERE id = 1;
+```
+
+⚠️ **Be careful!** This permanently deletes the row.
+
+---
+
+## ✅ 6. `JOIN` – Combine tables
+
+Imagine you have two tables:
+
+* `books (id, title)`
+* `reviews (id, book_id, rating)`
+
+You can join them like this:
+
+```sql
+SELECT books.title, reviews.rating
+FROM books
+JOIN reviews ON books.id = reviews.book_id;
+```
+
+🔗 This shows each book's title with its rating.
+
+---
+
+## 🧠 Mapping SQL to Django ORM
+
+| SQL                   | Django ORM                           |
+| --------------------- | ------------------------------------ |
+| `SELECT * FROM books` | `Book.objects.all()`                 |
+| `WHERE author='John'` | `Book.objects.filter(author='John')` |
+| `INSERT INTO ...`     | `Book.objects.create(...)`           |
+| `UPDATE`              | `book.title = "New"; book.save()`    |
+| `DELETE`              | `book.delete()`                      |
+| `JOIN`                | `Book.objects.select_related(...)`   |
+
+---
+
+## ✅ Bonus: Useful Commands in `psql`
+
+| Command     | Meaning               |
+| ----------- | --------------------- |
+| `\dt`       | List all tables       |
+| `\d books`  | Show table structure  |
+| `\q`        | Quit psql             |
+| `\c dbname` | Connect to a database |
+
+---
+
+## 🔄 Summary Table
+
+| SQL Concept | Syntax Example                                   | Purpose                |
+| ----------- | ------------------------------------------------ | ---------------------- |
+| SELECT      | `SELECT * FROM books;`                           | Read data              |
+| INSERT      | `INSERT INTO books (title) VALUES ('Book 1');`   | Add data               |
+| WHERE       | `SELECT * FROM books WHERE author='John';`       | Filter results         |
+| UPDATE      | `UPDATE books SET title='New' WHERE id=1;`       | Modify data            |
+| DELETE      | `DELETE FROM books WHERE id=1;`                  | Remove data            |
+| JOIN        | `...JOIN reviews ON books.id = reviews.book_id;` | Combine related tables |
+
+---
+
+## 🚀 Want to Practice?
+
+You can:
+
+* Use `pgAdmin` or `psql` to run SQL
+* Or use `Book.objects.raw('SELECT * FROM books')` in Django to run raw SQL
+
+---
+
+Would you like me to:
+
+* Show how to write these SQL queries inside Django?
+* Or move to the next step: PostgreSQL in Django models and queries?
+
+Let me know and I’ll walk you through it clearly!
