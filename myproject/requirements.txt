@@ -12,7 +12,6 @@ cffi==1.15.1
 charset-normalizer==2.0.12
 confluent-kafka==2.6.0
 cryptography==36.0.2
-dataclasses==0.8
 Django==2.2
 django-background-tasks==1.2.5
 django-ckeditor==6.3.2
