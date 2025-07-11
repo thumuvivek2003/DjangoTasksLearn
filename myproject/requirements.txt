@@ -12,6 +12,7 @@ cffi==1.15.1
 charset-normalizer==2.0.12
 confluent-kafka==2.6.0
 cryptography==36.0.2
+dataclasses==0.8
 Django==2.2
 django-background-tasks==1.2.5
 django-ckeditor==6.3.2
@@ -30,7 +31,7 @@ google-api-core==2.8.2
 google-api-python-client==2.52.0
 google-auth==2.22.0
 google-auth-httplib2==0.2.0
-google-cloud-bigquery>=3.20.1
+google-cloud-bigquery==3.2.0
 google-cloud-bigquery-storage==2.13.2
 google-cloud-core==2.3.1
 google-cloud-storage==1.42.3
