@@ -4669,3 +4669,452 @@ url2 = reverse('app2:book_details', args=[book.id])
 Let me know if you want me to help you restructure your apps to avoid this or need example templates.
 
 
+# Task 17 : Django Signals
+Hi, I want to learn Django and now I am moving to the 
+| 17   | Django Signals                      | Trigger actions when events happen                   | post_save, pre_delete                                      | so guide me as I am very new to these concepts - so explain clearly  with full code 
+
+You're doing great! 🎉 You're now on **Step 17: Django Signals** — a powerful way to **automatically run code when certain events happen** like saving or deleting a model.
+
+Let me walk you through **clear explanations + full working code** step-by-step.
+
+---
+
+## 🔔 What are Django Signals?
+
+> **Signals** let you listen for certain events (like model save or delete) and **trigger custom actions**.
+
+---
+
+## 🎯 Real-Life Example Use Cases:
+
+* 🔔 Send a welcome email **after** a new user is created.
+* 🗂️ Automatically log changes **before** a model is deleted.
+* 🧾 Update other data **after** a model is saved.
+
+---
+
+## ✅ Built-In Signals You’ll Use
+
+| Signal       | When It Fires                      |
+| ------------ | ---------------------------------- |
+| `post_save`  | After a model instance is saved    |
+| `pre_delete` | Before a model instance is deleted |
+
+---
+
+## 🧱 Let's Build This:
+
+We’ll use the `Book` model from earlier:
+
+```python
+# myapp/models.py
+
+from django.db import models
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
+
+    def __str__(self):
+        return self.title
+```
+
+Now, let’s create signals to:
+
+1. Print a message after a book is saved.
+2. Log the title before a book is deleted.
+
+---
+
+## ✅ Step 1: Create a `signals.py` File
+
+```python
+# myapp/signals.py
+
+from django.db.models.signals import post_save, pre_delete
+from django.dispatch import receiver
+from .models import Book
+
+@receiver(post_save, sender=Book)
+def after_book_saved(sender, instance, created, **kwargs):
+    if created:
+        print(f"📘 New Book Created: {instance.title}")
+    else:
+        print(f"✏️ Book Updated: {instance.title}")
+
+@receiver(pre_delete, sender=Book)
+def before_book_deleted(sender, instance, **kwargs):
+    print(f"🗑️ Book is being deleted: {instance.title}")
+```
+
+---
+
+## ✅ Step 2: Connect the Signal in `apps.py`
+
+Modify your app config so Django knows to load the signal:
+
+```python
+# myapp/apps.py
+
+from django.apps import AppConfig
+
+class MyappConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'myapp'
+
+    def ready(self):
+        import myapp.signals  # 👈 Import the signals when app is ready
+```
+
+Make sure your app in `INSTALLED_APPS` is listed as `'myapp.apps.MyappConfig'` in `settings.py`:
+
+```python
+# settings.py
+
+INSTALLED_APPS = [
+    ...
+    'myapp.apps.MyappConfig',
+]
+```
+
+---
+
+## ✅ Step 3: Test It
+
+Open the Django shell:
+
+```bash
+python manage.py shell
+```
+
+Try creating and deleting a book:
+
+```python
+from myapp.models import Book
+from datetime import date
+
+# Create
+book = Book.objects.create(title="Signal Demo", author="Alice", published_date=date.today())
+# → Console prints: 📘 New Book Created: Signal Demo
+
+# Update
+book.title = "Signal Demo Updated"
+book.save()
+# → Console prints: ✏️ Book Updated: Signal Demo Updated
+
+# Delete
+book.delete()
+# → Console prints: 🗑️ Book is being deleted: Signal Demo Updated
+```
+
+🎉 Success! Your signals are working!
+
+---
+
+## 🧠 Summary
+
+| Concept           | Use                         | Signal Hook             |
+| ----------------- | --------------------------- | ----------------------- |
+| `post_save`       | After saving a model        | `@receiver(post_save)`  |
+| `pre_delete`      | Before deleting a model     | `@receiver(pre_delete)` |
+| `apps.py ready()` | Load signal when app starts | `import myapp.signals`  |
+
+---
+
+## 🚀 Want More?
+
+You can also:
+
+* Send email when user is created
+* Update related models when one changes
+* Create audit logs using signals
+
+Would you like to do any of those next? Or should we move on to **Step 18: Django Admin Customization**?
+
+
+only these signals only or any other signals available ? 
+Great follow-up question! 🔍
+
+Django provides **many built-in signals**, not just `post_save` and `pre_delete`. These two are very common, but Django actually has a **full signal system** that covers:
+
+* Model events
+* Request/response lifecycle
+* Database connections
+* M2M field changes
+* Custom user-defined signals
+
+---
+
+## 🔔 Most Common Django Signals
+
+| Signal                  | Description                                               |
+| ----------------------- | --------------------------------------------------------- |
+| `pre_save`              | Before a model is saved (before hitting DB)               |
+| `post_save`             | After a model is saved (after hitting DB)                 |
+| `pre_delete`            | Before a model instance is deleted                        |
+| `post_delete`           | After a model instance is deleted                         |
+| `m2m_changed`           | When a many-to-many relationship is changed               |
+| `pre_migrate`           | Before running migrations                                 |
+| `post_migrate`          | After migrations are applied                              |
+| `request_started`       | When a new HTTP request is received                       |
+| `request_finished`      | When a request finishes processing                        |
+| `got_request_exception` | When an exception occurs during a request                 |
+| `user_logged_in`        | After a user logs in (from `django.contrib.auth.signals`) |
+| `user_logged_out`       | After a user logs out                                     |
+| `user_login_failed`     | When login fails                                          |
+
+---
+
+## 🧠 Examples of Other Useful Signals
+
+---
+
+### ✅ `pre_save` – Auto Capitalize Title Before Saving
+
+```python
+from django.db.models.signals import pre_save
+from django.dispatch import receiver
+from .models import Book
+
+@receiver(pre_save, sender=Book)
+def capitalize_title(sender, instance, **kwargs):
+    instance.title = instance.title.title()
+```
+
+---
+
+### ✅ `m2m_changed` – Track Changes in Many-to-Many Relationships
+
+```python
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
+from .models import Book
+
+@receiver(m2m_changed, sender=Book.genres.through)
+def genre_changed(sender, instance, action, **kwargs):
+    print(f"Genres changed on {instance.title}: Action={action}")
+```
+
+---
+
+### ✅ `user_logged_in` – Log Welcome Message
+
+```python
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
+
+@receiver(user_logged_in)
+def welcome_user(sender, user, request, **kwargs):
+    print(f"👋 Welcome back, {user.username}!")
+```
+
+---
+
+## 🧩 Can I Create My Own Signal?
+
+Yes! Django allows you to define **custom signals**.
+
+```python
+from django.dispatch import Signal
+
+# define
+book_viewed = Signal(providing_args=["book", "user"])
+
+# send
+book_viewed.send(sender=Book, book=mybook, user=request.user)
+
+# receive
+@receiver(book_viewed)
+def log_book_view(sender, **kwargs):
+    print(f"{kwargs['user']} viewed {kwargs['book']}")
+```
+
+---
+
+## ✅ Summary Table
+
+| Category          | Signal                      | Description                            |
+| ----------------- | --------------------------- | -------------------------------------- |
+| Model Lifecycle   | `pre_save`, `post_save`     | Before/after save                      |
+|                   | `pre_delete`, `post_delete` | Before/after delete                    |
+| M2M               | `m2m_changed`               | When many-to-many relation is modified |
+| Auth Events       | `user_logged_in`            | When user logs in                      |
+|                   | `user_logged_out`           | When user logs out                     |
+|                   | `user_login_failed`         | On failed login                        |
+| Request Lifecycle | `request_started`           | Request starts                         |
+|                   | `request_finished`          | Request ends                           |
+| Migration         | `post_migrate`              | After applying migrations              |
+| Custom            | `Signal()`                  | Your own custom app-level triggers     |
+
+---
+
+Would you like me to:
+
+* Show how to use `m2m_changed`?
+* Handle `user_logged_in` to log user info?
+* Or create your **own custom signal** for a special feature?
+
+Let me know — I’ll give full working code as always.
+
+
+own signal ? how and where we can create explain suitable example 
+
+Awesome! You're now exploring **Custom Django Signals** — this is next-level stuff and very useful when you want your app to **react to custom-defined events** 🧠.
+
+Let’s explain this **step-by-step** with a **real-world example**, full code, and where to place everything.
+
+---
+
+## 🔔 What Are Custom Signals?
+
+> **Custom signals** are events that *you* define. When that event happens in your app, you "send" a signal — and other code "listens" and reacts.
+
+Think of it like:
+
+* 📢 "Hey! This event happened!"
+* 👂 "Okay! I’ll respond to it!"
+
+---
+
+## 🎯 Example Use Case
+
+> 🔥 **Track whenever someone views a book detail page**, and log it for analytics.
+
+---
+
+## ✅ Step 1: Create the Custom Signal
+
+```python
+# myapp/signals.py
+
+from django.dispatch import Signal
+
+# Define a custom signal
+book_viewed = Signal()  # you can also do providing_args=["book", "user"] in older Django
+```
+
+This creates a signal that can be triggered later.
+
+---
+
+## ✅ Step 2: Create a Receiver (Listener)
+
+Still in `signals.py`:
+
+```python
+from django.dispatch import receiver
+from .models import Book
+
+@receiver(book_viewed)
+def log_book_view(sender, **kwargs):
+    book = kwargs.get('book')
+    user = kwargs.get('user')
+    print(f"📖 Book viewed: '{book.title}' by user: {user if user else 'Anonymous'}")
+```
+
+This function will **run whenever `book_viewed.send()` is called.**
+
+---
+
+## ✅ Step 3: Send the Signal in the View
+
+In your book detail view, send the signal:
+
+```python
+# myapp/views.py
+
+from django.views.generic import DetailView
+from .models import Book
+from .signals import book_viewed
+
+class BookDetailView(DetailView):
+    model = Book
+    template_name = 'book_detail.html'
+    context_object_name = 'book'
+
+    def get_object(self):
+        obj = super().get_object()
+
+        # Send the signal
+        book_viewed.send(
+            sender=Book,
+            book=obj,
+            user=self.request.user if self.request.user.is_authenticated else None
+        )
+        return obj
+```
+
+This triggers the signal **every time someone opens the detail page of a book**.
+
+---
+
+## ✅ Step 4: Connect the Signal in `apps.py`
+
+Update `apps.py` to load your signals when the app starts:
+
+```python
+# myapp/apps.py
+
+from django.apps import AppConfig
+
+class MyappConfig(AppConfig):
+    default_auto_field = 'django.db.models.BigAutoField'
+    name = 'myapp'
+
+    def ready(self):
+        import myapp.signals  # 👈 VERY IMPORTANT
+```
+
+Then make sure `settings.py` uses this app config:
+
+```python
+# settings.py
+
+INSTALLED_APPS = [
+    ...
+    'myapp.apps.MyappConfig',
+]
+```
+
+---
+
+## ✅ Step 5: Test It!
+
+1. Start your server:
+
+```bash
+python manage.py runserver
+```
+
+2. Visit `/books/1/` (or whatever detail page exists).
+3. In your terminal you’ll see:
+
+```
+📖 Book viewed: 'Django Basics' by user: Alice
+```
+
+🎉 You’ve now created and triggered your own custom Django signal!
+
+---
+
+## 🧠 Summary
+
+| Part             | Code/File                | Purpose                         |
+| ---------------- | ------------------------ | ------------------------------- |
+| Define signal    | `book_viewed = Signal()` | Create custom event             |
+| Send signal      | `book_viewed.send(...)`  | Trigger signal in view          |
+| Receive signal   | `@receiver(book_viewed)` | React to signal (logging, etc.) |
+| Register signals | In `apps.py → ready()`   | Ensure Django loads signals     |
+
+---
+
+## 🚀 Want to Extend This?
+
+* Save the view event to a model for analytics
+* Count book views using `F()` expressions
+* Trigger email or notifications
+
+Would you like to try one of these next, or move to the next Django topic (Step 18: Admin customization)?
+
+
