@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'accounts',
     'mybookapp',
     'myapp.apps.MyappConfig',
+     'static_media',
 ]
 
 MIDDLEWARE = [
@@ -53,7 +54,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'myapp.middleware.SimpleLogMiddleware',
-    'myapp.middleware.RateLimitMiddleware',
+    # 'myapp.middleware.RateLimitMiddleware',
 ]
 
 ROOT_URLCONF = 'myproject.urls'
@@ -130,6 +131,12 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Optional for custom files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles') 
+
+
+
+# Media files
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # for uploaded files
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
