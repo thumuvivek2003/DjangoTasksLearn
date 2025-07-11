@@ -59,3 +59,10 @@ Hi, I want to learn Django and now I am moving to the
 | 19   | Static & Media Files                | Add CSS, JS, images to your site                     | `staticfiles`, `media`, file uploads                           | so guide me as I am very new to these concepts - so explain clearly  with full code 
 
 
+
+
+Hi, I want to learn Django and now I am moving to the 
+| 20   | Deployment Basics                   | Deploy Django app on real server                     | Gunicorn, Nginx, Heroku, or Render                             |
+ so guide me as I am very new to these concepts - so explain clearly  with full code 
+
+
