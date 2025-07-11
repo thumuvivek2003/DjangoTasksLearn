@@ -49,3 +49,8 @@ Hi, I want to learn Django and now I am moving to the
 
 Hi, I want to learn Django and now I am moving to the 
 | 17   | Django Signals                      | Trigger actions when events happen                   | `post_save`, `pre_delete`                                      | so guide me as I am very new to these concepts - so explain clearly  with full code 
+
+
+Hi, I want to learn Django and now I am moving to the 
+| 18   | Django Middlewares                  | Custom logic on each request                         | Middleware functions, `request`, `response`                    | so guide me as I am very new to these concepts - so explain clearly  with full code 
+
