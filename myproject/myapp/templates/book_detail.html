@@ -1,0 +1,7 @@
+<h2>{{ book.title }}</h2>
+<p>Author: {{ book.author }}</p>
+<p>Published: {{ book.published_date }}</p>
+
+<a href="{% url 'book_update' book.pk %}">Edit</a> |
+<a href="{% url 'book_delete' book.pk %}">Delete</a> |
+<a href="{% url 'book_list' %}">Back to list</a>
