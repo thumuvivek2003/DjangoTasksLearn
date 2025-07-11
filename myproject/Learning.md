@@ -3986,3 +3986,205 @@ Would you like me to:
 * Or move to the next step: PostgreSQL in Django models and queries?
 
 Let me know and I’ll walk you through it clearly!
+
+
+
+# Task 15 : PostgreSQL – Advanced (with Django ORM)  15: PostgreSQL – Advanced (with Django ORM) 
+Hi, I want to learn Django and now I am moving to the 
+| 15   | PostgreSQL – Advanced               | Advanced SQL with Django ORM                         | Aggregates, annotations, raw SQL                               | so guide me as I am very new to these concepts - so explain clearly  my table name is myapp_book and cols are id |    title     | author  | published_date I  want complete code not simple so guide me clearly
+
+
+Great! You're on **Step 15: PostgreSQL – Advanced (with Django ORM)** — this step helps you unlock **powerful SQL features** in Django using:
+
+* **Aggregates** (like `COUNT`, `MAX`, `AVG`)
+* **Annotations** (add computed fields)
+* **Raw SQL** (when Django ORM can't handle your query)
+
+Let’s use your real table: `myapp_book`
+Columns: `id`, `title`, `author`, `published_date`
+
+We'll go deep and give you **complete working Django code** with explanations — not just small examples.
+
+---
+
+## 🔧 Step 1: Model Setup for `myapp_book`
+
+```python
+# myapp/models.py
+
+from django.db import models
+
+class Book(models.Model):
+    title = models.CharField(max_length=200)
+    author = models.CharField(max_length=100)
+    published_date = models.DateField()
+
+    def __str__(self):
+        return f"{self.title} by {self.author}"
+```
+
+Then run:
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+---
+
+## ✅ Step 2: Aggregates in Django ORM
+
+### ➤ Goal: Count books, get max/min published date
+
+```python
+# myapp/views.py
+
+from django.db.models import Count, Max, Min, Avg
+from django.shortcuts import render
+from .models import Book
+
+def book_stats_view(request):
+    stats = Book.objects.aggregate(
+        total_books=Count('id'),
+        earliest=Min('published_date'),
+        latest=Max('published_date'),
+    )
+    return render(request, 'book_stats.html', {'stats': stats})
+```
+
+---
+
+### 🧾 `templates/book_stats.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Book Stats</title></head>
+<body>
+    <h2>Book Statistics</h2>
+    <p>Total Books: {{ stats.total_books }}</p>
+    <p>Earliest Published: {{ stats.earliest }}</p>
+    <p>Latest Published: {{ stats.latest }}</p>
+</body>
+</html>
+```
+
+---
+
+## ✅ Step 3: Annotations (Group by + Add Extra Fields)
+
+### ➤ Goal: Show how many books each author wrote
+
+```python
+# myapp/views.py
+
+from django.db.models import Count
+from .models import Book
+
+def books_by_author_view(request):
+    data = Book.objects.values('author').annotate(book_count=Count('id')).order_by('-book_count')
+    return render(request, 'books_by_author.html', {'data': data})
+```
+
+---
+
+### 🧾 `templates/books_by_author.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Books by Author</title></head>
+<body>
+    <h2>Books Grouped by Author</h2>
+    <ul>
+        {% for entry in data %}
+            <li>{{ entry.author }} - {{ entry.book_count }} book(s)</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+```
+
+---
+
+## ✅ Step 4: Raw SQL in Django
+
+### ➤ Goal: Run advanced query directly
+
+```python
+# myapp/views.py
+
+from django.db import connection
+
+def books_published_after_2020_view(request):
+    with connection.cursor() as cursor:
+        cursor.execute("SELECT id, title, author, published_date FROM myapp_book WHERE published_date >= '2020-01-01'")
+        rows = cursor.fetchall()
+
+    books = [
+        {'id': row[0], 'title': row[1], 'author': row[2], 'published_date': row[3]}
+        for row in rows
+    ]
+
+    return render(request, 'books_after_2020.html', {'books': books})
+```
+
+---
+
+### 🧾 `templates/books_after_2020.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head><title>Books After 2020</title></head>
+<body>
+    <h2>Books Published in or After 2020</h2>
+    <ul>
+        {% for book in books %}
+            <li>{{ book.title }} by {{ book.author }} ({{ book.published_date }})</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
+```
+
+---
+
+## ✅ URLs: Hook it All Up
+
+```python
+# myapp/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('stats/', views.book_stats_view, name='book_stats'),
+    path('authors/', views.books_by_author_view, name='books_by_author'),
+    path('after2020/', views.books_published_after_2020_view, name='books_after_2020'),
+]
+```
+
+---
+
+## 🧠 Summary of Concepts
+
+| Feature            | ORM Example                                   | What It Does                             |
+| ------------------ | --------------------------------------------- | ---------------------------------------- |
+| `aggregate()`      | `Book.objects.aggregate(Count('id'))`         | Totals, averages, max/min                |
+| `annotate()`       | `Book.objects.values('author').annotate(...)` | Adds computed fields per group           |
+| `raw()`            | `Book.objects.raw("SELECT ...")`              | Executes raw SQL safely                  |
+| `cursor.execute()` | With `connection.cursor()`                    | Low-level DB control for complex queries |
+
+---
+
+## 🚀 Ready to Go Further?
+
+* Want to group by **year** using `ExtractYear`?
+* Want to do **pagination** or **search filters**?
+* Want to **use raw SQL with joins**?
+
+Let me know and I’ll guide you step-by-step — with full code again!
+
+
+

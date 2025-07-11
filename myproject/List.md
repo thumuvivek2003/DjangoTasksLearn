@@ -19,7 +19,7 @@ Perfect — you're taking a strong first step! Here's a full **Django + PostgreS
 | 11   | Django REST Framework (DRF) – Intro | Build APIs instead of web pages                      | DRF install, `APIView`, serializers                            |
 | 12   | DRF – CRUD APIs                     | Create REST APIs for your models                     | GET, POST, PUT, DELETE APIs                                    |
 | 13   | Authentication in Django            | Add user login, signup, password system              | `User` model, `auth`, middleware                               |0
-| 14   | PostgreSQL – Basics                 | Learn basic SQL used in Django                       | SELECT, INSERT, WHERE, JOIN                                    |
+| 14   | PostgreSQL – Basics                 | Learn basic SQL used in Django                       | SELECT, INSERT, WHERE, JOIN                                    |0
 | 15   | PostgreSQL – Advanced               | Advanced SQL with Django ORM                         | Aggregates, annotations, raw SQL                               |
 | 16   | Class-Based Views                   | Use Django's powerful CBVs                           | `ListView`, `DetailView`, `CreateView`                         |
 | 17   | Django Signals                      | Trigger actions when events happen                   | `post_save`, `pre_delete`                                      |

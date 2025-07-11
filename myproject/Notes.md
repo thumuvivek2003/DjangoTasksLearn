@@ -37,3 +37,8 @@ Hi, I want to learn Django and now I am moving to the | 13   | Authentication in
 
 Hi, I want to learn Django and now I am moving to the 
 | 14   | PostgreSQL – Basics                 | Learn basic SQL used in Django                       | SELECT, INSERT, WHERE, JOIN                                    | so guide me as I am very new to these concepts - so explain clearly 
+
+
+Hi, I want to learn Django and now I am moving to the 
+| 15   | PostgreSQL – Advanced               | Advanced SQL with Django ORM                         | Aggregates, annotations, raw SQL                               | so guide me as I am very new to these concepts - so explain clearly 
+
