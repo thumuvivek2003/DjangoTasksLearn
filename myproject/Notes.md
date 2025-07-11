@@ -29,3 +29,7 @@ Hi, I want to learn Django and now I am moving to the | 11   | Django REST Frame
 
 
 Hi, I want to learn Django and now I am moving to the | 12   | DRF – CRUD APIs                     | Create REST APIs for your models                     | GET, POST, PUT, DELETE APIs                                    | so guide me as I am very new to these concepts - so explain clearly 
+
+
+
+Hi, I want to learn Django and now I am moving to the | 13   | Authentication in Django            | Add user login, signup, password system              | `User` model, `auth`, middleware                               | so guide me as I am very new to these concepts - so explain clearly 
