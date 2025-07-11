@@ -3530,3 +3530,287 @@ class BookViewSet(viewsets.ModelViewSet):
 * Perfect for production-grade APIs when you follow DRF's best practices.
 
 Let me know if you want me to show your exact code with `ModelViewSet` and router integration.
+
+
+
+
+# Task 13 : Authentication in Django 
+
+Hi, I want to learn Django and now I am moving to the | 13   | Authentication in Django            | Add user login, signup, password system              | User model, auth, middleware                               | so guide me as I am very new to these concepts - so explain clearly  give me full and complete code too 
+
+
+Perfect! You're now at **Step 13: Authentication in Django** — this is how Django manages **login, signup, logout, and user sessions**.
+
+## I'll explain this clearly and give you **complete working code** for:
+
+## ✅ What You'll Build
+
+1. **User Registration (Sign Up)**
+2. **User Login**
+3. **User Logout**
+4. **Home Page (only if logged in)**
+
+You’ll use:
+
+* Django’s built-in `User` model
+* `auth` module for login/logout
+* CSRF + sessions for security
+
+---
+
+## 🛠️ Step-by-Step Full Setup
+
+---
+
+### 📦 1. Create Project and App
+
+```bash
+django-admin startproject authproject
+cd authproject
+python manage.py startapp accounts
+```
+
+---
+
+### 🧰 2. Update `settings.py`
+
+```python
+# authproject/settings.py
+
+INSTALLED_APPS = [
+    ...
+    'accounts',
+]
+
+# Templates
+import os
+TEMPLATES[0]['DIRS'] = [os.path.join(BASE_DIR, 'templates')]
+
+# Redirect after login/logout
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
+```
+
+---
+
+### 🗂️ 3. Project Directory Structure
+
+```
+authproject/
+│
+├── accounts/
+│   ├── views.py
+│   ├── urls.py
+│   └── forms.py
+│
+├── templates/
+│   ├── registration/
+│   │   ├── login.html
+│   │   └── signup.html
+│   ├── home.html
+│   └── base.html
+```
+
+---
+
+### 🔐 4. `accounts/forms.py`
+
+```python
+# accounts/forms.py
+
+from django import forms
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+
+class SignUpForm(UserCreationForm):
+    email = forms.EmailField(required=True)
+
+    class Meta:
+        model = User
+        fields = ['username', 'email', 'password1', 'password2']
+```
+
+---
+
+### 📄 5. `accounts/views.py`
+
+```python
+# accounts/views.py
+
+from django.shortcuts import render, redirect
+from django.contrib.auth import login
+from .forms import SignUpForm
+from django.contrib.auth.decorators import login_required
+
+def signup_view(request):
+    if request.method == 'POST':
+        form = SignUpForm(request.POST)
+        if form.is_valid():
+            user = form.save()
+            login(request, user)  # Auto login after signup
+            return redirect('home')
+    else:
+        form = SignUpForm()
+    return render(request, 'registration/signup.html', {'form': form})
+
+@login_required
+def home_view(request):
+    return render(request, 'home.html')
+```
+
+---
+
+### 🌐 6. `accounts/urls.py`
+
+```python
+# accounts/urls.py
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('signup/', views.signup_view, name='signup'),
+    path('home/', views.home_view, name='home'),
+]
+```
+
+---
+
+### 🌐 7. Project’s `urls.py`
+
+```python
+# authproject/urls.py
+
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', include('accounts.urls')),
+    path('', include('django.contrib.auth.urls')),  # Built-in login/logout
+]
+```
+
+---
+
+## 🖼️ 8. Templates
+
+---
+
+### 📁 `templates/base.html`
+
+```html
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Auth System</title>
+</head>
+<body>
+    {% if user.is_authenticated %}
+        Logged in as {{ user.username }} | <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a> | <a href="{% url 'signup' %}">Signup</a>
+    {% endif %}
+    <hr>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
+```
+
+---
+
+### 📁 `templates/registration/login.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Login</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Login</button>
+</form>
+{% endblock %}
+```
+
+---
+
+### 📁 `templates/registration/signup.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Sign Up</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Register</button>
+</form>
+{% endblock %}
+```
+
+---
+
+### 📁 `templates/home.html`
+
+```html
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Welcome {{ user.username }}!</h2>
+<p>This is a protected home page. Only logged-in users can see it.</p>
+{% endblock %}
+```
+
+---
+
+## ✅ 9. Run Your App
+
+```bash
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
+```
+
+Open:
+
+* `http://127.0.0.1:8000/signup/` → Register a user
+* `http://127.0.0.1:8000/accounts/login/` → Login
+* `http://127.0.0.1:8000/home/` → Home (login required)
+
+---
+
+## 🔐 Built-In Routes Django Provides:
+
+| URL                 | Purpose             |
+| ------------------- | ------------------- |
+| `/accounts/login/`  | Login               |
+| `/accounts/logout/` | Logout              |
+| `/signup/`          | Custom signup       |
+| `/home/`            | Protected home page |
+
+---
+
+## 🧠 Key Concepts You Learned:
+
+| Concept            | Explanation                                    |
+| ------------------ | ---------------------------------------------- |
+| `User` model       | Django’s built-in user system                  |
+| `UserCreationForm` | Pre-built form to register users               |
+| `@login_required`  | Makes views accessible only to logged-in users |
+| `login()`          | Logs the user in programmatically              |
+| `csrf_token`       | Protects forms from cross-site attacks         |
+| `auth` middleware  | Handles user sessions, login, logout           |
+
+---
+
+Would you like:
+
+* To add **email verification**?
+* To build **change password**, **reset password** pages?
+* Or to use **DRF + JWT token authentication** for APIs?
+
+Let me know and I’ll guide you step-by-step.
