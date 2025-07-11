@@ -33,3 +33,7 @@ Hi, I want to learn Django and now I am moving to the | 12   | DRF – CRUD APIs
 
 
 Hi, I want to learn Django and now I am moving to the | 13   | Authentication in Django            | Add user login, signup, password system              | `User` model, `auth`, middleware                               | so guide me as I am very new to these concepts - so explain clearly 
+
+
+Hi, I want to learn Django and now I am moving to the 
+| 14   | PostgreSQL – Basics                 | Learn basic SQL used in Django                       | SELECT, INSERT, WHERE, JOIN                                    | so guide me as I am very new to these concepts - so explain clearly 
